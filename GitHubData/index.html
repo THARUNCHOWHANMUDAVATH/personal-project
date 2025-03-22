@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Github User Fetch</h1>
+    <input type="text" id="input" placeholder="Enter Github username">
+    <button onclick="fetchUserData()">Fetch User</button>
+    <div id="data"></div>
+
+    <p id="followers"></p>
+    <p id="following"></p>
+    <script>
+        function fetchUserData(){
+            let username=document.getElementById("input").value
+            let imageE1=document.createElement("img")
+            let namepara=document.createElement("p")
+            let followpara=document.getElementById("followers")
+            let followingpara=document.getElementById("following")
+        const url=`https://api.github.com/users/${username}`;
+            
+        let parentDiv=document.getElementById("data")
+
+            fetch(url)
+                .then((response)=>{
+                    return response.json()})
+                .then((userData)=>{
+                console.log(userData)
+                imageE1.src=userData.avatar_url
+                namepara.textContent=`UserName : ${userData.name}`
+                followpara.textContent=`Followers : ${userData.followers}`
+                followingpara.textContent=`Following : ${userData.following}`
+
+                })
+                .catch((error)=>{
+                    console.log(error)
+                })
+                parentDiv.appendChild(imageE1)
+                parentDiv.appendChild(namepara)
+               
+
+        
+        }
+       
+    </script>
+</body>
+</html>
